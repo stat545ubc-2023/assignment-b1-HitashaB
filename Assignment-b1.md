@@ -80,7 +80,7 @@ jitterplot <- function(x, y) {
   geom_jitter(size = 0.8, alpha = 0.5, width = 0.1) 
 }
 
-#'@Jitterplot 
+#'@title Jitterplot
 #'@description This function can be used to create a jitter plot to look at the relationship between two variables, one categorical and one numeric. The data points are of size 0.8 with alpha transparency and a set width of 0.1 so the points don't jitter too far away from one another.
 #'@param x A categorical variable in the dataset, usually an independent variable.
 #'@param y A numerical variable in the dataset, usually a dependent variable.
@@ -321,7 +321,7 @@ test_that('X not a character',{
 })
 ```
 
-    ## Test passed 😀
+    ## Test passed 😸
 
 ``` r
 test_that('Y not a numeric',{
@@ -329,7 +329,7 @@ test_that('Y not a numeric',{
 })
 ```
 
-    ## Test passed 🥇
+    ## Test passed 🥳
 
 ``` r
 test_that('Function creates a ggplot', {
@@ -337,7 +337,7 @@ test_that('Function creates a ggplot', {
 })
 ```
 
-    ## Test passed 😸
+    ## Test passed 😀
 
 ``` r
 test_that('Function cannot plot two numerical variables', {
@@ -345,4 +345,4 @@ test_that('Function cannot plot two numerical variables', {
 }) #This is to test whether the function would still make a plot if there were two numerical variables.
 ```
 
-    ## Test passed 🥇
+    ## Test passed 🎉
