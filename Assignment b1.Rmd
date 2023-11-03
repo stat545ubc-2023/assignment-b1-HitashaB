@@ -1,0 +1,111 @@
+---
+title: "Assignment b1"
+output: github_document
+date: "2023-11-03"
+---
+# Initial Steps 
+
+First, we need to load our dataset and the necessary packagse.
+```{r}
+library(datateachr) # contains data that will be used for the assignment
+library(tidyverse) #includes the dplyr package for data processing and handling
+library(ggplot2)
+library (testthat)
+
+```
+
+
+# Exercise 1: Make a Function
+
+I chose to make a function for a plot that I used frequently for STAT545A Mini Data Analysis Project. This function creates a jitter plot looking at the relationship between two variables within the dataset. One variable is categorical and the other is numeric.
+```{r}
+jitterplot <- function(x, y) {
+  if (!(is.character(x))){
+    stop('You have not indicated a categorical variable')
+  }
+  if(!(is.numeric(y))) {
+    stop('You have not indicated a numeric variable.')
+  }
+  ggplot(mapping = aes(x, y)) + 
+  geom_jitter(size = 0.8, alpha = 0.5, width = 0.1) 
+}
+
+```
+
+# Exercise 2: Document your Function
+
+
+```{r}
+jitterplot <- function(x, y) {
+  if (!(is.character(x))){
+    stop('You have not indicated a categorical variable')
+  }
+  if(!(is.numeric(y))) {
+    stop('You have not indicated a numeric variable.')
+  }
+  ggplot(mapping = aes(x, y)) + 
+  geom_jitter(size = 0.8, alpha = 0.5, width = 0.1) 
+}
+
+#'@Jitterplot 
+#'@description This function can be used to create a jitter plot to look at the relationship between two variables, one categorical and one numeric. The data points are of size 0.8 with alpha transparency and a set width of 0.1 so the points don't jitter too far away from one another.
+#'@param x A categorical variable in the dataset, usually an independent variable.
+#'@param y A numerical variable in the dataset, usually a dependent variable.
+#'@return The ultimate plot that is seen is a jitter plot that shows each datapoint, using a categorical variable on the x axis and a numerical one on the y axis.
+```
+# Exercise 3: Include Examples
+
+Example 1: Plotting the relationship of the mean radius size of nuclei depending on malignancy.
+
+```{r}
+summary(cancer_sample) #shows me the variables in the dataset
+```
+
+```{r}
+jitterplot(cancer_sample$diagnosis, cancer_sample$radius_mean)
+```
+Example 2: Plotting the relationship between tree diameter and presence of root barrier.
+```{r}
+summary(vancouver_trees) #shows me the variables in the dataset
+```
+```{r}
+jitterplot(vancouver_trees$root_barrier, vancouver_trees$diameter)
+```
+Example 3: Plotting the relationship between the property type and the number of storeys.
+
+```{r}
+summary(apt_buildings) #shows me the variables in the dataset
+```
+```{r}
+jitterplot(apt_buildings$property_type, apt_buildings$no_of_storeys)
+```
+
+# Exercise 4
+
+```{r}
+test_that('X not a character',{
+  expect_error(jitterplot(vancouver_tree$latitude, vancouver_tree$longitude))
+})
+
+```
+
+```{r}
+test_that('Y not a numeric',{
+  expect_error(jitterplot(vancouver_tree$latitude, vancouver_tree$species_name))
+})
+
+```
+```{r}
+test_that('Function creates a ggplot', {
+  expect_is(jitterplot(cancer_sample$diagnosis, cancer_sample$radius_mean), "ggplot")
+})
+
+```
+```{r}
+test_that('Function cannot plot two numerical variables', {
+  expect_error(jitterplot(cancer_sample$fractal_dimension_mean, cancer_sample$radius_mean))
+}) #This is to test whether the function would still make a plot if there were two numerical variables.
+
+```
+
+
